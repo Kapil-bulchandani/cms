@@ -1,0 +1,8 @@
+name: CMS Admin
+description: 'Provides an interface to manage CMS Environments.'
+type: module
+core_version_requirement: ^9 || ^10
+package: TechSur
+configure: cms_admin.settings
+dependencies:
+  - key

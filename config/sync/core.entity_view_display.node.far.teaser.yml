@@ -1,0 +1,32 @@
+uuid: 007786f6-9679-4e04-a3c4-0ece965b7636
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.far.body
+    - field.field.node.far.feeds_item
+    - node.type.far
+  module:
+    - text
+    - user
+id: node.far.teaser
+targetEntityType: node
+bundle: far
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  feeds_item: true

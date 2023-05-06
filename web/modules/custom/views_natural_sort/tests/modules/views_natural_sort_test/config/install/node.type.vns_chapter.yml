@@ -1,0 +1,9 @@
+langcode: en
+status: true
+name: 'Views Natural Sort Chapter Content'
+type: vns_chapter
+description: 'Content type used for testing the basic functionality of the Views Natural Sort module.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: true

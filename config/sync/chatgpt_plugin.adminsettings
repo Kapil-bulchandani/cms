@@ -1,0 +1,9 @@
+gpt_model_version: chatgpt
+completion_endpoint: 'https://api.openai.com/v1/completions'
+chatgpt_endpoint: 'https://api.openai.com/v1/chat/completions'
+gpt3_model: text-curie-001
+chatgpt_model: gpt-3.5-turbo
+dalle_endpoint: 'https://api.openai.com/v1/images/generations'
+chatgpt_token: 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
+chatgpt_temperature: '0.9'
+chatgpt_max_token: '4000'

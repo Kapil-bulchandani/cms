@@ -1,0 +1,39 @@
+<?php
+
+namespace Drupal\chatgptx;
+
+
+
+/**
+ * Implements hook_menu_links_discovered_alter().
+ */
+function chatgptx_menu_links_discovered_alter(&$links) {
+  // Alter menu links here.
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function chatgptx_form_alter(&$form, &$form_state, $form_id) {
+  // Check if the form ID is the editable form provided by the openai module.
+  if ($form_id == 'openai_settings') {
+    
+    // Add a custom submit handler to the form.
+    $form['#submit'][] = 'chatgptx_custom_submit_handler';
+
+    // Get the API key and organization ID form fields from the openai module.
+    $api_key = $form['api_key']['#value'];
+    $api_org = $form['api_org']['#value'];
+  }
+}
+
+/**
+ * Custom submit handler for the chatgptx editable form.
+ */
+function chatgptx_custom_submit_handler(&$form, &$form_state) {
+  // Get the API key and organization ID form values from the submitted form data.
+  $api_key = $form_state['values']['api_key'];
+  $api_org = $form_state['values']['api_org'];
+
+  // Perform custom validation or data processing here.
+}

@@ -1,0 +1,165 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\cms_admin\doHelper;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\cms_admin\ghHelper;
+
+/**
+ * Implements hook_help().
+ */
+function cms_admin_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name === 'help.page.cms_admin') {
+    $readme_content = file_get_contents(dirname(__FILE__) . '/README.md');
+    if (\Drupal::moduleHandler()->moduleExists('markdown')) {
+      // Use the Markdown filter to render the README.
+      $filter_manager = \Drupal::service('plugin.manager.filter');
+      $markdown_config = \Drupal::configFactory()->get('markdown.settings')->getRawData();
+      $markdown_settings = ['settings' => $markdown_config];
+      $filter = $filter_manager->createInstance('markdown', $markdown_settings);
+
+      return $filter->process($readme_content, 'en');
+    }
+    else {
+      return '<pre>' . $readme_content . '</pre>';
+    }
+  }
+}
+
+/**
+ *
+ * Implements hook_theme().
+ */
+function cms_admin_theme($existing, $type, $theme, $path) {
+  return [
+    'cms_environment' => [
+      'template' => 'cms_environment',
+      'variables' => ['cms_environment' => NULL],
+    ],
+  ];
+}
+
+
+/**
+ *
+ * Implements hook_entity_operation().
+ */
+function cms_admin_entity_operation(\Drupal\Core\Entity\EntityInterface $entity) {
+  $operations = [];
+  if ($entity->getEntityTypeId() == 'cms_environment') {
+    $operations['edit'] = [
+      'title' => t('Edit'),
+      'url' => \Drupal\Core\Url::fromRoute('entity.cms_environment.edit', ['cms_environment' => $entity->id()]),
+      'weight' => 10,
+    ];
+    $operations['delete'] = [
+      'title' => t('Delete'),
+      'url' => \Drupal\Core\Url::fromRoute('entity.cms_environment.delete', ['cms_environment' => $entity->id()]),
+      'weight' => 20,
+    ];
+    $operations['update'] = [
+      'title' => t('Update Status'),
+      'url' => \Drupal\Core\Url::fromRoute('entity.cms_environment.update_status', ['cms_environment' => $entity->id()]),
+      'weight' => 30,
+    ];
+  }
+  return $operations;
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function cms_admin_entity_presave(EntityInterface $entity) {
+
+  if ($entity->getEntityTypeId() == 'cms_environment') {
+    $doHelper = new doHelper();
+
+    if ($entity->isNew()) {
+      // Create a new repo
+      $config = \Drupal::configFactory()->get('cms_admin.settings');
+      if ($key_id = $config->get('github_key')) {
+        $gh_key = \Drupal::service('key.repository')
+          ->getKey($key_id)
+          ->getKeyValue();
+        $ghHelper = new ghHelper($gh_key);
+        try {
+          $repo = $ghHelper->forkRepo($config->get('github_owner'),
+            $config->get('github_repo'),
+            [
+              'name' => $entity->get('machine_name')->getString(),
+            ]
+          );
+          $entity->set('github_repo', $repo);
+        }
+        catch (\Exception $e) {
+          \Drupal::logger('cms-admin')
+            ->error($e->getMessage());
+          \Drupal::messenger()
+            ->addWarning($e->getMessage());
+        }
+      }
+
+
+      // Create new DO droplet
+      $created = $doHelper->createDroplet($entity);
+      if ($created) {
+        $entity->setDropletId($created->id);
+      }
+      else {
+        \Drupal::messenger()
+          ->addWarning(t('Can not create Digital Ocean instance. Check logs for more info'));
+      }
+    }
+    elseif (!$entity->status() && $entity->original->status()) {
+      // Stop the droplet.
+      if ($droplet_id = $entity->getDropletId()) {
+        $doHelper->stopDroplet($droplet_id);
+      }
+    }
+    elseif ($entity->status() && !$entity->original->status()) {
+      // Start the droplet.
+      if ($droplet_id = $entity->getDropletId()) {
+        $doHelper->startDroplet($droplet_id);
+      }
+    }
+
+    // Check size.
+    if (!$entity->isNew() && $entity->original->getServerSize() !== $entity->getServerSize()) {
+      if ($droplet_id = $entity->getDropletId()) {
+        if (!$doHelper->resizeDroplet($droplet_id, $entity->getServerSize())) {
+          $entity->setServerSize($entity->original->getServerSize());
+        }
+      }
+    }
+  }
+  elseif ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'far') {
+    $new_label = $entity->label();
+    $new_label = trim($new_label,  ' \t\n\r\0\x0B"');
+    $label_field = $entity->getEntityType()->getKey('label');
+    $entity->set($label_field, $new_label);
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function cms_admin_entity_delete(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'cms_environment') {
+    // Remove Droplet.
+    $doHelper = new doHelper();
+    if ($droplet_id = $entity->getDropletId()) {
+      $doHelper->deleteDroplet($droplet_id);
+    }
+    // Remove GitHub repo.
+    if ($repo = $entity->get('github_repo')->getString()) {
+      $config = \Drupal::configFactory()->get('cms_admin.settings');
+      $key_id = $config->get('github_key');
+      $gh_key = \Drupal::service('key.repository')
+        ->getKey($key_id)
+        ->getKeyValue();
+      $ghHelper = new ghHelper($gh_key);
+      $repo_arr = explode('/', $repo);
+      $ghHelper->removeRepo($repo_arr[0], $repo_arr[1]);
+    }
+  }
+}

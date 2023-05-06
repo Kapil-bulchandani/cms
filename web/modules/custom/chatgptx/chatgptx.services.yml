@@ -1,0 +1,10 @@
+services:
+  chatgptx.client:
+    class: chatgptx\Client
+    factory: ['@chatgptx.client_factory', create]
+  chatgptx.client_factory:
+    class: Drupal\chatgptx\Http\ClientFactory
+    arguments: ['@config.factory']
+  chatgptx.service:
+    class: Drupal\chatgptx\chatgptxService
+    arguments: ['@config.factory', '@logger.factory']

@@ -1,0 +1,23 @@
+uuid: 957a7209-0919-4cf4-811e-03c634a68b3a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.far
+  module:
+    - text
+id: node.far.body
+field_name: body
+entity_type: node
+bundle: far
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

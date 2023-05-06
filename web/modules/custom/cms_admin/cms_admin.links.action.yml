@@ -1,0 +1,5 @@
+entity.cms_environment.add:
+  route_name: entity.cms_environment.add
+  title: 'Add New Environment'
+  appears_on:
+    - entity.cms_environment.collection

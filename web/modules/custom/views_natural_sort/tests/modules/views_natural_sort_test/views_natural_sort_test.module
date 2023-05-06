@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * @file
+ * Contains views_natural_sort_test module.
+ */
+
+use Drupal\views_natural_sort\IndexRecord;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\views_natural_sort\Plugin\IndexRecordContentTransformation\Numbers;
+
+/**
+ * Implements hook_help().
+ */
+function views_natural_sort_test_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the views_natural_sort_test module.
+    case 'help.page.views_natural_sort_test':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Set up module for Views Natural Sort testing.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_views_natural_sort_transformations().
+ */
+function views_natural_sort_test_views_natural_sort_transformations_alter(array &$transformations, IndexRecord $record) {
+  if ($record->getEntityType() == 'node' && $record->getField() == 'title') {
+    $entity = \Drupal::entityTypeManager()->getStorage($record->getEntityType())->load($record->getEntityId());
+    if ($entity->bundle() == 'vns_chapter') {
+      $number_transformation_position = FALSE;
+      foreach ($transformations as $key => $transformation) {
+        if ($transformation instanceof Numbers) {
+          $number_transformation_position = $key;
+        }
+      }
+      if ($number_transformation_position !== FALSE) {
+        $chapter_transformation = \Drupal::service('plugin.manager.vns_transformation')->createInstance('chapter_number_prep', array());
+        array_splice($transformations, $number_transformation_position, 0, [$chapter_transformation]);
+      }
+    }
+  }
+}

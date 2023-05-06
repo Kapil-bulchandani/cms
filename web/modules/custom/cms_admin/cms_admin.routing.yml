@@ -1,0 +1,66 @@
+entity.cms_environment.canonical:
+  path: '/admin/content/cms-environment/{cms_environment}'
+  defaults:
+    _entity_view: 'cms_environment'
+    _title_callback: '\Drupal\cms_admin\Controller\CMSEnvironmentController::title'
+  requirements:
+    _permission: 'use cms panel'
+
+entity.cms_environment.add:
+  path: '/admin/content/cms-environment/add'
+  defaults:
+    _entity_form: 'cms_environment.add'
+    _title: 'Add CMS Environment'
+  requirements:
+    _permission: 'use cms panel'
+  options:
+    _admin_route: TRUE
+
+entity.cms_environment.edit:
+  path: '/admin/content/cms-environment/{cms_environment}/edit'
+  defaults:
+    _entity_form: 'cms_environment.edit'
+    _title_callback: '\Drupal\cms_admin\Controller\CMSEnvironmentController::title'
+  requirements:
+    _permission: 'use cms panel'
+
+entity.cms_environment.delete:
+  path: '/admin/content/cms-environment/{cms_environment}/delete'
+  defaults:
+    _entity_form: 'cms_environment.delete'
+    _title_callback: '\Drupal\cms_admin\Controller\CMSEnvironmentController::title'
+  requirements:
+    _permission: 'use cms panel'
+
+entity.cms_environment.update_status:
+  path: '/admin/content/cms-environment/{cms_environment}/update-status'
+  defaults:
+    _controller: '\Drupal\cms_admin\Controller\CMSEnvironmentController::updateStatus'
+    _title_callback: '\Drupal\cms_admin\Controller\CMSEnvironmentController::title'
+  requirements:
+    _permission: 'use cms panel'
+
+entity.cms_environment.collection:
+  path: '/admin/content/cms-environment'
+  defaults:
+    _entity_list: 'cms_environment'
+    _title: 'CMS Environment'
+  requirements:
+    _permission: 'use cms panel'
+
+
+entity.cms_environment.test_page:
+  path: '/panel/test-page'
+  defaults:
+    _controller: '\Drupal\cms_admin\Controller\CMSEnvironmentController::testPage'
+    _title_callback: '\Drupal\cms_admin\Controller\CMSEnvironmentController::title'
+  requirements:
+    _permission: 'access content'
+
+cms_admin.settings:
+  path: '/admin/config/system/cms-admin'
+  defaults:
+    _form: '\Drupal\cms_admin\Form\CMSEnvironmentSettingsForm'
+    _title: 'CMS Admin settings'
+  requirements:
+    _permission: 'use cms panel'

@@ -1,0 +1,7 @@
+cms_environment.list:
+  title: 'Access CMS Environment List'
+  description: 'Allows users to access the CMS Environment List page.'
+  restrict access: false
+use cms panel:
+  title: 'Use CMS Admin Panel'
+  description: 'Allows users to access the CMS Environment Panel.'

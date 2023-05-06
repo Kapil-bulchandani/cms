@@ -1,0 +1,81 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - cms_admin
+id: cms_environment
+label: 'CMS Environment'
+plural_label: 'CMS Environments'
+label_count: '@count CMS Environments'
+class: Drupal\cms_admin\Entity\CMSEnvironment
+list_builder_class: Drupal\cms_admin\Entity\CMSEnvironmentListBuilder
+base_table: cms_environment
+entity_keys:
+  id:
+    type: integer
+    label: 'ID'
+    constraints:
+      - Serial
+  uuid:
+    type: uuid
+    label: 'UUID'
+  label:
+    type: label
+    label: 'Label'
+  uid:
+    type: entity_reference
+    label: 'Authored by'
+    target_type: user
+    target_bundle: user
+    constraints:
+      - NotNull
+  status:
+    type: boolean
+    label: 'Status'
+    constraints:
+      - NotNull
+  domain_name:
+    type: string
+    label: 'Domain Name'
+    constraints:
+      - NotNull
+  region:
+    type: string
+    label: 'Region'
+  server_size:
+    type: string
+    label: 'Server Size'
+  ip_address:
+    type: string
+    label: 'IP Address'
+  theme:
+    type: string
+    label: 'Theme'
+  created:
+    type: created
+    label: 'Created'
+  changed:
+    type: changed
+    label: 'Changed'
+  langcode:
+    type: language
+    label: 'Language'
+    constraints:
+      - NotNull
+uuid:
+  type: uuid
+  provider: null
+  constraints:
+    - NotNull
+view_builder: Drupal\Core\Entity\EntityViewBuilder
+render_cache:
+  max-age: 0
+  contexts:
+    - user
+    - languages:language_interface
+  tags:
+    - entity_view
+form:
+  default: Drupal\cms_admin\Entity\CMSEnvironmentForm
+delete:
+  default: Drupal\cms_admin\Entity\CMSEnvironmentDeleteForm

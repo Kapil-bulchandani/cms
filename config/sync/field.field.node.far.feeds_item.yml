@@ -1,0 +1,23 @@
+uuid: 75e7ed4e-d655-4571-ad0a-c0b455465cd6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.feeds_item
+    - node.type.far
+  module:
+    - feeds
+id: node.far.feeds_item
+field_name: feeds_item
+entity_type: node
+bundle: far
+label: 'Feeds item'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:feeds_feed'
+  handler_settings: {  }
+field_type: feeds_item

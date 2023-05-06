@@ -1,0 +1,7 @@
+name: chatgptx
+description: ChatGPT Fine tuner
+type: module
+core_version_requirement: ^10
+package: Custom
+dependancies: 
+  - openai 

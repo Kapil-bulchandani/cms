@@ -1,0 +1,38 @@
+uuid: e2dc5627-9810-4488-ab03-5eb7e7dd3303
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_new
+    - node.type.forum
+  module:
+    - image
+id: node.forum.field_image_new
+field_name: field_image_new
+entity_type: node
+bundle: forum
+label: image-new
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: null
+    alt: ''
+    title: ''
+    width: null
+    height: null
+field_type: image

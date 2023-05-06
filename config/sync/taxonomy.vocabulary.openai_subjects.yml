@@ -1,0 +1,8 @@
+uuid: 5c98374a-d9fc-4d11-a5f8-dc64f72837fe
+langcode: en
+status: true
+dependencies: {  }
+name: 'OpenAI subjects'
+vid: openai_subjects
+description: 'Subjects for OpenAI content generation.'
+weight: 0

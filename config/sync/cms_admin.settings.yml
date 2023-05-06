@@ -1,0 +1,4 @@
+secret_key: digitalocean
+github_key: github
+github_owner: techsur-solutions
+github_repo: vets-website

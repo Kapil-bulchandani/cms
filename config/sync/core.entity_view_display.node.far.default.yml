@@ -1,0 +1,30 @@
+uuid: 7a1e5b0e-04c3-44b7-9d44-d7d4b284eae2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.far.body
+    - field.field.node.far.feeds_item
+    - node.type.far
+  module:
+    - text
+    - user
+id: node.far.default
+targetEntityType: node
+bundle: far
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  feeds_item: true

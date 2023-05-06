@@ -1,0 +1,14 @@
+name: Views Natural Sort
+type: module
+description: Sort results naturally on a node's title skipping articles like "the" and "a."
+core: 8.x
+core_version_requirement: ^8 || ^9 || ^10
+package: Views
+configure: views_natural_sort.settings
+dependencies:
+  - drupal:views
+
+# Information added by Drupal.org packaging script on 2022-12-02
+version: '8.x-2.0-alpha6'
+project: 'views_natural_sort'
+datestamp: 1670002936

@@ -1,0 +1,18 @@
+cms_admin.content_list:
+  title: 'CMS Environment'
+  parent: system.admin_structure
+  description: 'List of all CMS Environment entities.'
+  route_name: entity.cms_environment.collection
+  weight: 100
+cms_admin.add_cms_environment:
+  title: 'Add CMS Environment'
+  parent: cms_admin.content_list
+  description: 'Create new CMS Environment.'
+  route_name: entity.cms_environment.add
+  weight: 1
+cms_admin.settings:
+  title: 'CMS Admin'
+  parent: system.admin_config_system
+  description: 'CMS Admin settings.'
+  route_name: cms_admin.settings
+  weight: 10

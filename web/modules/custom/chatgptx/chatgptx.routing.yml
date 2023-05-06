@@ -1,0 +1,22 @@
+chatgptx.settings:
+  path: '/chatgptx-test'
+  defaults:
+    _controller: '\Drupal\chatgptx\Controller\chatgptSendData:chatgptxSendDataBuild'
+    _title: 'chatgptx fine tuning'
+  requirements:
+    _permission: 'access content'
+chatgptx.form:
+  path: '/admin/config/chatgptx'
+  defaults:
+    _form: '\Drupal\chatgptx\Form\chatgptxForm'
+    _title: 'chatgptx Form'
+  requirements:
+    _permission: 'administer site configuration'
+chatgptx.dataset.form:
+  path: '/admin/config/chatgptx/dataset'
+  defaults:
+    _form: '\Drupal\chatgptx\Form\chatgptxDatasetForm'
+    _title: 'Dataset'
+  requirements:
+    _permission: 'administer site configuration'
+

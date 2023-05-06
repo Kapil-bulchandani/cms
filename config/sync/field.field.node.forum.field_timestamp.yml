@@ -1,0 +1,21 @@
+uuid: eceb5c5f-3528-472b-b077-14a5656e9525
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_timestamp
+    - node.type.forum
+id: node.forum.field_timestamp
+field_name: field_timestamp
+entity_type: node
+bundle: forum
+label: Timestamp
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1680035866
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

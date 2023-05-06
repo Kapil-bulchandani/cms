@@ -1,0 +1,18 @@
+{
+    "name": "drupal/cms_admin",
+    "description": "Custom CMS admin module",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Illia Stankevych",
+            "email": "Illia.Stankevych@techsur.solutions"
+        }
+    ],
+    "require": {
+        "toin0u/digitalocean-v2": "^4.6",
+        "guzzlehttp/guzzle": "^7.5",
+        "http-interop/http-factory-guzzle": "^1.2"
+    }
+
+}

@@ -1,0 +1,66 @@
+{# cms-environment.html.twig #}
+{#{% extends "@core/layout.html.twig" %}#}
+
+{% block content %}
+  <h1>{{ label }}</h1>
+
+  <p>
+    <a class="button button--primary" href="{{ path('entity.cms_environment.canonical', {'cms_environment': cms_environment.id.value}) }}">View</a>
+    <a class="button" href="{{ path('entity.cms_environment.edit', {'cms_environment': cms_environment.id.value}) }}">Edit</a>
+    <a class="button" href="{{ path('entity.cms_environment.delete', {'cms_environment': cms_environment.id.value}) }}">Delete</a>
+    <a class="button" href="{{ path('entity.cms_environment.update_status', {'cms_environment': cms_environment.id.value}) }}">Update status</a>
+    {% if cms_environment.ip_address.value is not empty %}
+      <a class="button ext"  target="_blank" href="http://{{ cms_environment.ip_address.value }}">Visit web site</a>
+    {% endif %}
+  </p>
+
+  <table>
+    <tr>
+      <td>ID:</td>
+      <td>{{ cms_environment.id.value }}</td>
+    </tr>
+    <tr>
+      <td>UUID:</td>
+      <td>{{ cms_environment.uuid.value }}</td>
+    </tr>
+    <tr>
+      <td>Label:</td>
+      <td>{{ cms_environment.label.value }}</td>
+    </tr>
+    <tr>
+      <td>User ID:</td>
+      <td>{{ cms_environment.uid.entity.label }}</td>
+    </tr>
+    <tr>
+      <td>Status:</td>
+      <td>{{ cms_environment.status.value ? 'Active' : 'Inactive' }}</td>
+    </tr>
+    <tr>
+      <td>Domain Name:</td>
+      <td>{{ cms_environment.domain_name.value }}</td>
+    </tr>
+    <tr>
+      <td>Region:</td>
+      <td>{{ cms_environment.region.value }}</td>
+    </tr>
+    <tr>
+      <td>Server Size:</td>
+      <td>{{ cms_environment.server_size.value }}</td>
+    </tr>
+    <tr>
+      <td>IP Address:</td>
+      <td>{% if cms_environment.ip_address.value is empty %}
+        <a class="button--small button" href="{{ path('entity.cms_environment.update_status', {'cms_environment': cms_environment.id.value}) }}">Update status</a>
+        {% else %}{{ cms_environment.ip_address.value }}{% endif %}</td>
+    </tr>
+    <tr>
+      <td>Theme:</td>
+      <td>{{ cms_environment.theme.value }}</td>
+    </tr>
+    <tr>
+      <td>Droplet ID:</td>
+      <td>{{ cms_environment.droplet_id.value }}</td>
+    </tr>
+  </table>
+
+{% endblock %}

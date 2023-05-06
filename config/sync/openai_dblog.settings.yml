@@ -1,0 +1,12 @@
+_core:
+  default_config_hash: QCT-L_sYUpn3cArrJRJ0Yz24ML_ofocbLBZpFuGKfFM
+levels:
+  Emergency: Emergency
+  Alert: Alert
+  Critical: Critical
+  Error: Error
+  Warning: Warning
+  Notice: Notice
+  Info: Info
+  Debug: Debug
+model: text-davinci-003

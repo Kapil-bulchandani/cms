@@ -1,0 +1,31 @@
+{# cms-environment-list.html.twig #}
+{% extends "@cms_admin/layout.html.twig" %}
+
+{% block content %}
+  <h1>CMS Environment</h1>
+
+  <p><a href="{{ path('entity.cms_environment.add') }}">Add CMS Environment</a></p>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Label</th>
+      <th>Status</th>
+      <th>User ID</
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in cms_environments %}
+      <tr>
+        <td>{{ entity.id.value }}</td>
+        <td><a
+            href="{{ path('entity.cms_environment.canonical', {'cms_environment': entity.id.value}) }}">{{ entity.label.value }}</a>
+        </td>
+        <td>{{ entity.status.value ? 'Active' : 'Inactive' }}</td>
+        <td>{{ entity.uid.entity.label }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

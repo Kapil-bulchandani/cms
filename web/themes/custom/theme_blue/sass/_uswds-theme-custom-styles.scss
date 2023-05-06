@@ -1,0 +1,64 @@
+/*
+* * * * * ==============================
+* * * * * ==============================
+* * * * * ==============================
+* * * * * ==============================
+========================================
+========================================
+========================================
+----------------------------------------
+USWDS THEME CUSTOM STYLES
+----------------------------------------
+!! Copy this file to your project's
+   sass root. Don't edit the version
+   in node_modules.
+----------------------------------------
+Custom project SASS goes here.
+
+i.e.
+@include u-padding-right('05');
+----------------------------------------
+*/
+
+@use "uswds-core" as *;
+
+
+.front-page-item {
+  margin-bottom: 2em;
+
+  .field {
+    &--name-field-image {
+      float: left;
+      margin-right: 2em;
+    }
+    &--name-body {
+      font-size: 1.2em;
+    }
+  }
+
+  .links {
+    clear: both;
+  }
+
+}
+
+// FAR styles.
+.ListL1 {
+  margin-left: 1em;
+}
+.ListL2 {
+  margin-left: 2em;
+}
+.ListL3 {
+  margin-left: 3em;
+}
+.ListL4 {
+  margin-left: 4em;
+}
+.ListL5 {
+  margin-left: 5em;
+}
+.ListL6 {
+  margin-left: 6em;
+}
+

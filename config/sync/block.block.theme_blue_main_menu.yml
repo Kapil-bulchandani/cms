@@ -1,0 +1,27 @@
+uuid: e683040c-980c-4fa0-98c3-ae6b97d886c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - theme_blue
+_core:
+  default_config_hash: Pe2U29e4sDg-koK3eyBx_qZ4zM7V3GILiTn9unw7PhA
+id: theme_blue_main_menu
+theme: theme_blue
+region: primary_menu
+weight: 10
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 2
+  expand_all_items: false
+visibility: {  }
